@@ -1,6 +1,6 @@
 # 📰 India News & Sports Aggregator
 
-A beginner-friendly, responsive web app built with **Flask**. It aggregates the latest news (via [NewsAPI.org](https://newsapi.org/)), scrapes India sports headlines (from [ESPN India](https://www.espn.in/) or [Cricbuzz](https://www.cricbuzz.com/)), and tracks your "read" articles history in a MySQL database.
+A beginner-friendly, responsive web app built with **Flask**. It aggregates the latest news (via [NewsAPI.org](https://newsapi.org/)), scrapes India sports headlines (from[Cricbuzz](https://www.cricbuzz.com/)), and tracks your "read" articles history in a MySQL database.
 
 ## ✨ Features
 
@@ -10,9 +10,9 @@ A beginner-friendly, responsive web app built with **Flask**. It aggregates the 
 - 💾 **MySQL backend** for persistent storage
 
 ## 📸 Screenshots
-#Homepage
+##Homepage
 <img width="1439" height="779" alt="Screenshot 2025-07-24 at 3 46 22 PM" src="https://github.com/user-attachments/assets/a309d796-dcde-48dc-aadc-7d720c7e7c6d" />
-#History
+##History
 <img width="1433" height="742" alt="Screenshot 2025-07-24 at 3 46 38 PM" src="https://github.com/user-attachments/assets/116dd298-2c68-418e-bc78-5a18720fc208" />
 
 
@@ -87,7 +87,7 @@ Now open [http://127.0.0.1:5000/](http://127.0.0.1:5000/) in your browser.
 - **Backend:** Flask (Python)
 - **Frontend:** Jinja2 Templates, Responsive inlined CSS
 - **Database:** MySQL (persistent read history)
-- **APIs/Scraping:** [NewsAPI.org](https://newsapi.org/) for news, [ESPN India](https://www.espn.in/) or [Cricbuzz](https://www.cricbuzz.com/) (for India sports)
+- **APIs/Scraping:** [NewsAPI.org](https://newsapi.org/) for news, [Cricbuzz](https://www.cricbuzz.com/) (for India sports)
 - **Python Libraries:** `requests`, `mysql-connector-python`, `beautifulsoup4`
 
 ## 👀 Usage
@@ -131,11 +131,8 @@ Do not use it for commercial purposes or in violation of any website’s terms.
 ## ✨ Credits
 
 - [NewsAPI.org](https://newsapi.org/)
-- [ESPN India](https://www.espn.in/)
 - [Cricbuzz](https://www.cricbuzz.com/)
 - UI inspired by accessible news platforms.
 
 ## 🙌 Feel free to fork and improve!
 For issues, open a GitHub Issue or contact me.
-
-**\*Tip:** _To customize further (add badges, contributors, more screenshots, deployment instructions, etc.), just ask!_
