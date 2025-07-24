@@ -10,9 +10,9 @@ A beginner-friendly, responsive web app built with **Flask**. It aggregates the 
 - 💾 **MySQL backend** for persistent storage
 
 ## 📸 Screenshots
-##Homepage
+Homepage
 <img width="1439" height="779" alt="Screenshot 2025-07-24 at 3 46 22 PM" src="https://github.com/user-attachments/assets/a309d796-dcde-48dc-aadc-7d720c7e7c6d" />
-##History
+History
 <img width="1433" height="742" alt="Screenshot 2025-07-24 at 3 46 38 PM" src="https://github.com/user-attachments/assets/116dd298-2c68-418e-bc78-5a18720fc208" />
 
 
