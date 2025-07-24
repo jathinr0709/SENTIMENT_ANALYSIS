@@ -1,138 +1,80 @@
-# 📰 India News & Sports Aggregator
+Audio Sentiment Analysis Project
+Hey there! Welcome to my Audio Sentiment Analysis project. This is a fun little machine learning setup I built to analyze emotions in audio clips—figuring out if they're positive, negative, or neutral. It uses spectrogram images generated from audio files and trains a convolutional neural network (CNN) to make predictions. I put this together step by step, and now it's ready to share on GitHub. If you're into ML, audio processing, or just experimenting, feel free to clone it and give it a spin!
 
-A beginner-friendly, responsive web app built with **Flask**. It aggregates the latest news (via [NewsAPI.org](https://newsapi.org/)), scrapes India sports headlines (from[Cricbuzz](https://www.cricbuzz.com/)), and tracks your "read" articles history in a MySQL database.
+What Does This Project Do?
+Basically, it takes audio files (like WAVs), converts them into visual spectrograms, trains a model on labeled data to classify sentiments, and then tests it on new audio. It's great for things like voice analysis in apps or sentiment detection in calls.
 
-## ✨ Features
+Key Features:
+Convert audio folders to spectrogram images.
+Train a CNN model using images and a CSV with labels.
+Test the model on separate images and evaluate accuracy.
+Generate predictions and reports like classification metrics.
+Tech Stack
+I kept it simple with Python and some popular libraries:
 
-- 🔄 **Automatic, real-time aggregation** of India news & sports updates  
-- 📝 **"Read History" tracking:** Every time you click a headline, it's saved
-- 👀 **Clean, accessible UI** with large fonts & simple navigation (suitable for adults & seniors)
-- 💾 **MySQL backend** for persistent storage
+Python 3.9+ (that's what I used, but it should work on newer versions too).
+Libraries: TensorFlow/Keras for the ML model, Librosa and Matplotlib for audio-to-spectrogram conversion, OpenCV for image processing, Pandas and NumPy for data handling, and Scikit-learn for metrics and encoding.
+Install everything with: pip install tensorflow librosa matplotlib numpy opencv-python pandas scikit-learn
 
-## 📸 Screenshots
-Homepage
-<img width="1439" height="779" alt="Screenshot 2025-07-24 at 3 46 22 PM" src="https://github.com/user-attachments/assets/a309d796-dcde-48dc-aadc-7d720c7e7c6d" />
-History
-<img width="1433" height="742" alt="Screenshot 2025-07-24 at 3 46 38 PM" src="https://github.com/user-attachments/assets/116dd298-2c68-418e-bc78-5a18720fc208" />
+text
 
+Dataset
+This project is designed to work with datasets like the Audio Speech Sentiment dataset, which provides audio clips labeled for sentiments such as positive, negative, and neutral[1]. You can use it to generate your TRAIN.csv and TEST.csv files, along with corresponding spectrogram images. https://www.kaggle.com/datasets/imsparsh/audio-speech-sentiment
 
+Project Structure
+Here's how the files are organized:
 
-### 1. **Clone the repository**
+convert_audio_to_spectrograms.py: Script to turn audio files into spectrogram images.
+train_sentiment_model.py: Trains the CNN model using training images and TRAIN.csv.
+evaluate_sentiment_model.py: Tests the model on test images, compares with TEST.csv, and prints accuracy, classification report, and confusion matrix.
+sentiment_model.h5: The saved trained model (generate this by running the training script).
+TRAIN.csv and TEST.csv: Sample CSV files with filenames and sentiment labels (e.g., Positive, Negative, Neutral).
+Folders like train_images, test_images, and audio_folder for your data.
+How to Get Started
+1. Prepare Your Data
+Put your audio files (WAV) in a folder, say audio_folder.
+Run the conversion script to create spectrograms in train_images or test_images.
+Make sure you have TRAIN.csv for training labels (columns: Filename, Class).
+2. Convert Audio to Spectrograms
+Run: python convert_audio_to_spectrograms.py
 
-```bash
-git clone https://github.com/YOUR-USERNAME/your-news-aggregator.git
-cd your-news-aggregator
-```
+text Tweak the paths inside the script to point to your audio and output folders. It'll generate PNG images ready for the model.
 
-### 2. **Install dependencies**
+3. Train the Model
+Fire up: python train_sentiment_model.py
 
-```bash
-python3 -m venv venv
-source venv/bin/activate            # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-```
+text This loads your training data, builds a simple CNN, trains for 10 epochs (you can adjust this), and saves sentiment_model.h5. Keep an eye on the accuracy—it hit around 80% in my tests!
 
+4. Test and Evaluate
+Once trained, run: python evaluate_sentiment_model.py
 
-Sample requirements.txt:
+text It'll predict on your test images, compare against TEST.csv, and spit out:
 
-```
-flask
-requests
-beautifulsoup4
-mysql-connector-python
-```
+Overall accuracy.
+Classification report (precision, recall, F1 per class).
+Confusion matrix to see where it's messing up.
+Example Output
+After testing, you might see something like: Test Accuracy: 78.50%
 
+Classification Report: precision recall f1-score support
 
-### 3. **Set up MySQL database**
+text Positive 0.80 0.75 0.77 20 Negative 0.78 0.85 0.81 20 Neutral 0.77 0.75 0.76 20
 
-Start MySQL and enter in the MySQL shell:
-```sql
-CREATE DATABASE news_db;
-USE news_db;
-CREATE TABLE read_history (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(512),
-    url TEXT,
-    read_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
-> For very long URLs, `TEXT` is recommended for `url`.
+accuracy 0.78 60 macro avg 0.78 0.78 0.78 60 weighted avg 0.78 0.78 0.78 60
 
-### 4. **Get a NewsAPI API Key**
+Confusion Matrix: [[15 3 2] [ 2 17 1] [ 3 2 15]]
 
-- Register for a free key at [https://newsapi.org/](https://newsapi.org/)
-- Replace `NEWS_API_KEY` in `app.py` accordingly
+text Plus, it saves a CSV with predictions vs. actuals.
 
-### 5. **Configure your database credentials**
+Tips and Tweaks
+Epochs: Start with 10-20, but add early stopping if you notice overfitting.
+Improving Accuracy: If it's not great, try more data, a bigger image size (e.g., 224x224), or a pre-trained model like ResNet.
+Common Issues: Filename mismatches? Check extensions (WAV to PNG). Labels not matching? Standardize them in the CSV.
+Hardware: Runs fine on a basic CPU, but a GPU speeds up training.
+Contributing
+If you want to improve this (maybe add more features like real-time prediction), fork the repo and send a pull request! I'm open to ideas.
 
-Edit your `app.py`:
-```python
-db_config = {
-    'user': 'root',
-    'password': 'YOUR_MYSQL_PASSWORD',
-    'host': 'localhost',
-    'database': 'news_db'
-}
-```
+License
+This project is under the MIT License—feel free to use, modify, and share.
 
-### 6. **Run the application**
-
-```bash
-python app.py
-```
-Now open [http://127.0.0.1:5000/](http://127.0.0.1:5000/) in your browser.
-
-## 🛠️ Tech Stack
-
-- **Backend:** Flask (Python)
-- **Frontend:** Jinja2 Templates, Responsive inlined CSS
-- **Database:** MySQL (persistent read history)
-- **APIs/Scraping:** [NewsAPI.org](https://newsapi.org/) for news, [Cricbuzz](https://www.cricbuzz.com/) (for India sports)
-- **Python Libraries:** `requests`, `mysql-connector-python`, `beautifulsoup4`
-
-## 👀 Usage
-
-- **Click any news or sports headline:**  
-  Opens the article and instantly logs it to your read history.
-
-- **View your read articles:**  
-  Click **"View Read History"** on the homepage to see all you've read (title, URL, date/time).
-
-## 📂 Project Structure
-
-```
-.
-├── app.py
-├── requirements.txt
-├── templates/
-│   ├── index.html
-│   └── history.html
-└── static/    # optional, for external CSS/images
-```
-
-## 🎨 Customization
-
-- **Change news source:** Modify `NEWS_URL` in `app.py` (`country=in`, or `everything?q=india`, etc.)
-- **Change sports source:** Update the URL and selectors in the `get_sports` function.
-- **Styling:** Edit embedded CSS in templates, or add your own at `static/style.css`.
-- **Database:** Use MySQL Workbench or CLI to view/delete history as needed.
-
-## ⚠️ Known Issues
-
-- ESPN’s homepage layout may change; update scraping selectors or use Cricbuzz if headlines break.
-- NewsAPI free keys may have limitations (daily requests, empty for some countries).
-- For multi-user/production: Add authentication, use environment variables, deploy securely.
-
-## 📄 License
-
-This project is for educational and portfolio purposes.  
-Do not use it for commercial purposes or in violation of any website’s terms.
-
-## ✨ Credits
-
-- [NewsAPI.org](https://newsapi.org/)
-- [Cricbuzz](https://www.cricbuzz.com/)
-- UI inspired by accessible news platforms.
-
-## 🙌 Feel free to fork and improve!
-For issues, open a GitHub Issue or contact me.
+Thanks for checking it out! If you run into snags, drop an issue on GitHub. Happy coding! 🚀
